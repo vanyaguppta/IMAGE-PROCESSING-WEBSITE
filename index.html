@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Image Processing Lab | Vanya Gupta</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1>IMAGE PROCESSING LAB</h1>
+    <p>Interactive Practical Portal · Upload once, experiment across practicals</p>
+  </div>
+  <strong>Developed by:- Vanya Gupta</strong>
+</header>
+
+<div class="layout">
+<aside>
+  <label class="uploadBox">
+    <input id="imageInput" type="file" accept="image/*">
+    <span>📷 Upload Image</span>
+  </label>
+  <div id="fileName">No image selected</div>
+  <button id="resetBtn" class="secondary">Reset Image</button>
+
+  <h3>Practicals</h3>
+  <button class="nav active" data-section="basic">01 · Basic Operations</button>
+  <button class="nav" data-section="colour">02 · Colour Spaces</button>
+  <button class="nav" data-section="transform">03 · Geometric Transformations</button>
+  <button class="nav" data-section="enhance">04 · Enhancement & Histogram</button>
+  <button class="nav" data-section="filters">05 · Spatial Filters</button>
+  <button class="nav" data-section="restore">06 · Restoration & Inpainting</button>
+  <button class="nav" data-section="compress">07 · Compression</button>
+  <button class="nav" data-section="morph">08 · Morphological Processing</button>
+  <button class="nav" data-section="correlation">09 · Correlation / Object Detection</button>
+  <button class="nav" data-section="edges">10 · Canny / Sobel / Prewitt</button>
+</aside>
+
+<main>
+  <section id="basic" class="section active">
+    <h2>Basic Image Operations</h2>
+    <p>Upload an image, then apply grayscale, negative, brightness and bitwise operations.</p>
+    <div class="controls">
+      <button data-op="grayscale">Grayscale</button>
+      <button data-op="negative">Negative</button>
+      <button data-op="brightPlus">Brightness +30</button>
+      <button data-op="brightMinus">Brightness -30</button>
+      <button data-op="not">Bitwise NOT</button>
+      <button data-op="and">Bitwise AND</button>
+      <button data-op="or">Bitwise OR</button>
+      <button data-op="xor">Bitwise XOR</button>
+    </div>
+  </section>
+
+  <section id="colour" class="section">
+    <h2>Colour Spaces</h2>
+    <p>Explore RGB, grayscale and browser-computed HSV-style channels.</p>
+    <div class="controls">
+      <button data-op="rgb">RGB</button>
+      <button data-op="grayscale">Grayscale</button>
+      <button data-op="hue">Hue</button>
+      <button data-op="saturation">Saturation</button>
+      <button data-op="value">Value</button>
+      <button data-op="lightness">Lightness</button>
+      <button data-op="ycrcb">YCrCb-style Luma</button>
+    </div>
+  </section>
+
+  <section id="transform" class="section">
+    <h2>2-D Geometric Transformations</h2>
+    <div class="controls">
+      <label>Angle <input id="angle" type="number" value="30"></label>
+      <label>Scale <input id="scale" type="number" value="1.3" step="0.1"></label>
+      <label>Shear <input id="shear" type="number" value="0.25" step="0.05"></label>
+      <button data-op="translate">Translate</button>
+      <button data-op="rotate">Rotate</button>
+      <button data-op="scale">Scale</button>
+      <button data-op="shearX">Shear X</button>
+      <button data-op="shearY">Shear Y</button>
+      <button data-op="flipH">Reflection H</button>
+      <button data-op="flipV">Reflection V</button>
+      <button data-op="crop">Center Crop</button>
+    </div>
+  </section>
+
+  <section id="enhance" class="section">
+    <h2>Spatial Enhancement & Histogram</h2>
+    <div class="controls">
+      <button data-op="equalize">Histogram Equalization</button>
+      <button data-op="mean">Mean / Averaging</button>
+      <button data-op="gaussian">Gaussian Blur</button>
+      <button data-op="median">Median Filter</button>
+      <button data-op="laplacian">Laplacian Sharpening</button>
+      <button data-op="threshold">Binary Threshold</button>
+      <button data-op="inverseThreshold">Inverse Binary</button>
+      <button data-op="trunc">Truncate</button>
+      <button data-op="tozero">To Zero</button>
+      <button data-op="negative">Negative</button>
+    </div>
+    <div class="miniControls"><label>Threshold <input id="threshold" type="range" min="0" max="255" value="128"><output id="thresholdOut">128</output></label></div>
+  </section>
+
+  <section id="filters" class="section">
+    <h2>Spatial Domain Filters</h2>
+    <div class="controls">
+      <label>Kernel <select id="kernel"><option value="3">3 × 3</option><option value="5">5 × 5</option></select></label>
+      <button data-op="mean">Averaging Filter</button>
+      <button data-op="gaussian">Gaussian Filter</button>
+      <button data-op="median">Median Filter</button>
+      <button data-op="bilateral">Bilateral Filter</button>
+    </div>
+  </section>
+
+  <section id="restore" class="section">
+    <h2>Image Restoration & Inpainting</h2>
+    <div class="controls">
+      <button data-op="addGaussianNoise">Add Gaussian Noise</button>
+      <button data-op="saltPepper">Add Salt & Pepper</button>
+      <button data-op="gaussianDenoise">Gaussian Denoise</button>
+      <button data-op="medianDenoise">Median Denoise</button>
+      <button data-op="inpaint">Inpainting Demo</button>
+    </div>
+    <p class="note">For a true OpenCV-style inpainting mask, mark damaged pixels in a dedicated mask image. This browser version demonstrates the workflow without a server.</p>
+  </section>
+
+  <section id="compress" class="section">
+    <h2>Image Compression</h2>
+    <div class="controls">
+      <button data-op="png">PNG Lossless</button>
+      <button data-op="jpeg">JPEG Lossy</button>
+      <button data-op="rle">RLE Analysis</button>
+      <button data-op="lzw">LZW Analysis</button>
+    </div>
+    <div id="compressionInfo" class="infoCard">Run a compression operation to see estimated size and ratio.</div>
+  </section>
+
+  <section id="morph" class="section">
+    <h2>Morphological Processing</h2>
+    <div class="controls">
+      <button data-op="binary">Binary Image</button>
+      <button data-op="erosion">Erosion</button>
+      <button data-op="dilation">Dilation</button>
+      <button data-op="opening">Opening</button>
+      <button data-op="closing">Closing</button>
+      <button data-op="gradient">Morphological Gradient</button>
+      <button data-op="tophat">Top-Hat</button>
+      <button data-op="blackhat">Black-Hat</button>
+      <button data-op="hitmiss">Hit-or-Miss Demo</button>
+      <button data-op="skeleton">Skeleton Demo</button>
+    </div>
+  </section>
+
+  <section id="correlation" class="section">
+    <h2>Correlation & Object Detection</h2>
+    <div class="controls">
+      <label class="smallUpload">Template <input id="templateInput" type="file" accept="image/*"></label>
+      <button data-op="correlation">Run Correlation Detection</button>
+    </div>
+    <p class="note">If a template is uploaded, the site performs normalized template matching in the browser and draws the strongest match.</p>
+  </section>
+
+  <section id="edges" class="section">
+    <h2>Edge Detection</h2>
+    <div class="controls">
+      <label>Edge threshold <input id="edgeThreshold" type="range" min="10" max="200" value="60"><output id="edgeOut">60</output></label>
+      <button data-op="sobel">Sobel</button>
+      <button data-op="prewitt">Prewitt</button>
+      <button data-op="canny">Canny</button>
+    </div>
+  </section>
+
+  <section class="workspace">
+    <div class="canvasCard">
+      <h3>Original</h3>
+      <canvas id="originalCanvas"></canvas>
+    </div>
+    <div class="canvasCard">
+      <h3>Processed Output</h3>
+      <canvas id="outputCanvas"></canvas>
+    </div>
+  </section>
+  <section class="stats">
+    <div><b>Operation</b><span id="operation">—</span></div>
+    <div><b>Dimensions</b><span id="dimensions">—</span></div>
+    <div><b>Processing</b><span id="time">—</span></div>
+    <div><b>PSNR</b><span id="psnr">—</span></div>
+    <div><b>MSE</b><span id="mse">—</span></div>
+  </section>
+</main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
